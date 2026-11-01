@@ -27,7 +27,7 @@
 - @lantern_diet
 - @imoko_46kg
 - @tabete_heru（1日の食事提示）
-- ほか、初期リサーチの19アカウント（@ayu_beauty.life、@dietmenuplan、@fuyu.fit など。全19件の一覧は未受領）
+- ほか、初期リサーチの19アカウント（下の「初期リサーチ19アカウント」を参照）
 
 ## 別ジャンル検討用（骨盤底筋リサーチ）
 - @yumicorebody
@@ -36,4 +36,33 @@
 - @aokimaria
 - @sayaka06_balanceball
 - @rokkotsusensei_diet
-- ほか（全件の一覧は未受領）
+- ほか（「など」の続きの一覧は未受領）
+
+## 初期リサーチ19アカウント（2026-10-17、スプレッドシート）
+上位投稿の表示数中央値が高い順。出どころはユーザーのメッセージ（原文どおり）。
+
+| # | アカウント | 表示数中央値 |
+|---|---|---|
+| 1 | @ayu_beauty.life | 66,500 |
+| 2 | @sho_diet1 | 58,000 |
+| 3 | @dietmenuplan | 48,000 |
+| 4 | @fuyu.fit | 39,500 |
+| 5 | @boshieiyou | 34,000 |
+| 6 | @non_110kg | 13,500 |
+| 7 | @sayaka06_balanceball | 7,628 |
+| 8 | @eiyo_macchan | 6,814 |
+| 9 | @reigram0211 | 4,978 |
+| 10 | @kita_bichou | 4,783 |
+| 11 | @aco.bodymake | 4,231 |
+| 12 | @uma_regain | 4,078 |
+| 13 | @kounenki___chan | 3,515 |
+| 14 | @hakkousyokudaigaku | 3,302 |
+| 15 | @tounyou.gekitai.10 | 2,430 |
+| 16 | @dr.tokuko | 1,902 |
+| 17 | @diet_kenko_tanaka | 875 |
+| 18 | @saki_taisitu.kaizen | 724 |
+| 19 | @natural_orient | 433 |
+
+- @youkihi_cho_diet は、取得できた投稿が4件のみだったため、19件から除外されていた
+- @sho_diet1、@fuyu.fit、@diet_kenko_tanaka は、他の一覧と重複
+- @sayaka06_balanceball、@aco.bodymake は、骨盤底筋リサーチの一覧とも重複
