@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+  /* ============================================================
+     差し替え用の定数（ここだけ書き換えればOK）
+     ※ SNSのOGPクローラーはJSを実行しないため、
+       ツール名を変える場合は下の <title> と og:title / twitter:title の
+       3か所も同じ文言に書き換えてください。
+     ============================================================ */
+  var TOOL_NAME = "40代からの体型キープ力診断";
+  var LINE_URL = "https://lin.ee/WIGvONa";
+  var LINE_BUTTON_TEXT = "ランたんの習慣リストを受け取る";
+  var OPERATOR_NAME = "ランたん｜ゆるトレ×腸活で体型維持20年";
+  var OPERATOR_PROFILE = "作った人＝高校時代から20年、体型をキープしている43歳";
+</script>
+<title>40代からの体型キープ力診断</title>
+<meta name="description" content="8問・約1分。疲れた日にどう崩れやすいかを知って、自分に合った「最低ライン」を1つ持ち帰る診断です。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="40代からの体型キープ力診断">
+<meta property="og:description" content="8問・約1分。疲れた日にどう崩れやすいかを知って、自分に合った「最低ライン」を1つ持ち帰る診断です。">
+<meta property="og:locale" content="ja_JP">
+<!-- 公開URL（GitHub Pages）。独自ドメインなどに変える場合は og:url と og:image / twitter:image の3か所を書き換える -->
+<meta property="og:url" content="https://weapon37.github.io/takahiro/">
+<meta property="og:image" content="https://weapon37.github.io/takahiro/ogp.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://weapon37.github.io/takahiro/ogp.png">
+<meta name="twitter:title" content="40代からの体型キープ力診断">
+<meta name="twitter:description" content="8問・約1分。疲れた日にどう崩れやすいかを知って、自分に合った「最低ライン」を1つ持ち帰る診断です。">
+<meta name="theme-color" content="#2f4a3a">
+<style>
+  :root {
+    --bg: #f5f1e8;
+    --card: #fffdf8;
+    --ink: #2a2a26;
+    --sub: #6b675d;
+    --line: #e2dccd;
+    --green: #2f4a3a;
+    --green-soft: #e6ece5;
+    --line-green: #06c755;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", Meiryo, sans-serif;
+    font-size: 17px;
+    line-height: 1.8;
+    -webkit-text-size-adjust: 100%;
+  }
+  .wrap {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 24px 16px calc(24px + env(safe-area-inset-bottom));
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+  main { flex: 1; }
+  .screen { display: none; }
+  .screen.active { display: block; animation: fade .25s ease; }
+  @keyframes fade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .screen.active { animation: none; } }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 20px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    color: var(--green);
+    letter-spacing: .08em;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+  h1 { font-size: 26px; line-height: 1.45; margin: 0 0 16px; color: var(--green); }
+  h2 { font-size: 21px; line-height: 1.5; margin: 0 0 20px; }
+  p { margin: 0 0 14px; }
+  .meta {
+    display: inline-block;
+    font-size: 14px;
+    color: var(--green);
+    background: var(--green-soft);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 20px;
+  }
+  .lead { color: var(--sub); font-size: 16px; }
+  .profile {
+    font-size: 13px;
+    color: var(--sub);
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    margin: 24px 0 0;
+  }
+
+  .btn {
+    display: block;
+    width: 100%;
+    min-height: 56px;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:focus-visible, .choice:focus-visible, .text-link:focus-visible { outline: 3px solid #9bb3a2; outline-offset: 2px; }
+  .btn-primary { background: var(--green); color: #fff; }
+  .btn-primary:active { background: #223729; }
+  .btn-line { background: var(--line-green); color: #fff; }
+  .btn-line:active { background: #05a948; }
+  .btn-ghost { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
+  .btn-ghost:active { background: var(--green-soft); }
+
+  /* 進捗 */
+  .progress-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 14px; color: var(--sub); margin-bottom: 8px;
+  }
+  .progress-head strong { color: var(--green); font-size: 16px; }
+  .progress {
+    height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 24px;
+  }
+  .progress-bar { height: 100%; width: 0; background: var(--green); transition: width .25s ease; }
+
+  .choices { display: grid; gap: 12px; }
+  .choice {
+    display: block; width: 100%;
+    min-height: 64px;
+    padding: 14px 16px;
+    background: var(--card);
+    color: var(--ink);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    font: inherit; font-size: 16px; line-height: 1.6;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .choice:active, .choice.picked { border-color: var(--green); background: var(--green-soft); }
+  .back {
+    margin-top: 20px; background: none; border: none; color: var(--sub);
+    font: inherit; font-size: 14px; padding: 8px 0; cursor: pointer;
+  }
+  .back[hidden] { display: none; }
+
+  /* 結果 */
+  .result-label { font-size: 14px; color: var(--sub); margin: 0 0 4px; }
+  .type-name { font-size: 26px; color: var(--green); line-height: 1.45; margin: 0 0 20px; }
+  .section-title {
+    font-size: 14px; font-weight: 700; color: var(--green);
+    margin: 0 0 8px; letter-spacing: .04em;
+  }
+  .minline {
+    background: var(--green-soft);
+    border-left: 4px solid var(--green);
+    border-radius: 8px;
+    padding: 18px 16px;
+    margin: 28px 0;
+  }
+  .minline .section-title { font-size: 16px; }
+  .minline p { margin: 0; font-weight: 700; font-size: 17px; }
+  .cta { margin-top: 8px; }
+  .cta-note { font-size: 14px; color: var(--sub); text-align: center; margin: 0 0 10px; }
+  .stack > * + * { margin-top: 12px; }
+  .copied { font-size: 14px; color: var(--green); text-align: center; min-height: 1.6em; margin: 6px 0 0; }
+  .text-link {
+    display: block; text-align: center; margin-top: 18px;
+    color: var(--sub); font-size: 15px; background: none; border: none;
+    font-family: inherit; text-decoration: underline; cursor: pointer; width: 100%; padding: 8px;
+  }
+
+  footer {
+    font-size: 12px; color: var(--sub); line-height: 1.7;
+    text-align: center; padding: 28px 8px 0;
+  }
+
+  @media (min-width: 560px) {
+    .wrap { padding-top: 48px; }
+    .card { padding: 36px 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <main>
+    <!-- 1. トップ画面 -->
+    <section class="screen active" id="screen-top" aria-labelledby="tool-title">
+      <div class="card">
+        <p class="eyebrow">SELF CHECK</p>
+        <h1 id="tool-title"></h1>
+        <span class="meta">全8問・約1分</span>
+        <p class="lead">疲れた日、忙しい日に、自分がどう崩れやすいかを確認します。結果では、どんなに疲れた日でもこれだけは守る「最低ライン」を1つだけお伝えします。</p>
+        <button type="button" class="btn btn-primary" id="start-btn">診断をはじめる</button>
+        <p class="profile" id="profile"></p>
+      </div>
+    </section>
+
+    <!-- 2. 質問画面 -->
+    <section class="screen" id="screen-question" aria-live="polite">
+      <div class="progress-head">
+        <span><strong id="q-num">1</strong> / <span id="q-total">8</span> 問目</span>
+      </div>
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="8" aria-valuenow="1" id="progress">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+      <h2 id="q-text"></h2>
+      <div class="choices" id="choices"></div>
+      <button type="button" class="back" id="back-btn" hidden>← ひとつ前の質問に戻る</button>
+    </section>
+
+    <!-- 3. 結果画面 -->
+    <section class="screen" id="screen-result" aria-live="polite">
+      <div class="card">
+        <p class="result-label">あなたは</p>
+        <h2 class="type-name" id="r-type"></h2>
+
+        <p class="section-title">あなたの崩れパターン</p>
+        <p id="r-desc"></p>
+
+        <div class="minline">
+          <p class="section-title">あなたの最低ラインは、これです</p>
+          <p id="r-min"></p>
+        </div>
+
+        <div class="cta stack">
+          <p class="cta-note">体型維持のために続けている習慣をまとめたリストを、公式LINEで無料でお渡ししています。</p>
+          <a class="btn btn-line" id="line-btn" href="#" target="_blank" rel="noopener"></a>
+          <button type="button" class="btn btn-ghost" id="copy-btn">結果テキストをコピーする</button>
+        </div>
+        <p class="copied" id="copied" role="status"></p>
+        <button type="button" class="text-link" id="retry-btn">もう一度診断する</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    この診断は医学的な診断ではありません。<br>生活習慣を見直すきっかけとしてお楽しみください。
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ------------------------------------------------------------
+     質問データ
+     score: 各軸への加点。+ = 1, ± = 0, − = -1
+       A = 決めごと / B = 戻し方 / C = 夜の崩れにくさ
+     ------------------------------------------------------------ */
+  var QUESTIONS = [
+    {
+      text: "疲れて帰った日の夕食は、どうなることが多いですか？",
+      choices: [
+        { label: "なんとか自炊するか、決まったものを食べる", score: { A: 1 } },
+        { label: "コンビニや外食で、その日の気分で選ぶ", score: { A: -1 } },
+        { label: "疲れすぎて、食べる内容はどうでもよくなる", score: { A: -1, C: -1 } }
+      ]
+    },
+    {
+      text: "甘い飲み物（甘い缶コーヒー、ジュースなど）を飲む頻度は？",
+      choices: [
+        { label: "ほぼ飲まない。飲み物は水・お茶・ブラックと決めている", score: { A: 1 } },
+        { label: "週に数回は飲む", score: { A: -1 } },
+        { label: "ほぼ毎日飲む", score: { A: -1 } }
+      ]
+    },
+    {
+      text: "運動できない日が3日続いたら、気持ちはどうなりますか？",
+      choices: [
+        { label: "特に焦らない。できる日に戻ればいいと思える", score: { B: 1 } },
+        { label: "少し焦るけど、立て直し方はなんとなくある", score: { B: 0 } },
+        { label: "「もういいや」となり、そのまま止まりやすい", score: { B: -1 } }
+      ]
+    },
+    {
+      text: "夜、お腹が空いて眠れないときは？",
+      choices: [
+        { label: "食べるものを小分けのもの1つだけ、と決めている", score: { C: 1 } },
+        { label: "冷蔵庫やお菓子を、その日の我慢次第で食べてしまう", score: { C: -1 } },
+        { label: "夜に食べることが多く、翌朝後悔する", score: { C: -1 } }
+      ]
+    },
+    {
+      text: "食べ過ぎた翌日、どうしていますか？",
+      choices: [
+        { label: "戻し方が決まっている（早く寝る、湯船に浸かる、タンパク質を多めにする、など）", score: { B: 1 } },
+        { label: "なんとなく食事を軽くする程度", score: { B: 0 } },
+        { label: "特に何もせず、ズルズル続く", score: { B: -1 } }
+      ]
+    },
+    {
+      text: "忙しい日の朝食は？",
+      choices: [
+        { label: "簡単でも、食べるものは決まっている", score: { A: 1 } },
+        { label: "食べたり食べなかったり、その日次第", score: { A: -1 } },
+        { label: "朝食抜きが当たり前になっている", score: { A: -1 } }
+      ]
+    },
+    {
+      text: "間食について、自分で決めていることは？",
+      choices: [
+        { label: "食べるものや量の線引きがある", score: { A: 1, C: 1 } },
+        { label: "決めたいと思っているが、決まっていない", score: { A: -1 } },
+        { label: "特に何も決めていない", score: { A: -1 } }
+      ]
+    },
+    {
+      text: "「これはやらない」と決めているものはありますか？",
+      choices: [
+        { label: "ある（甘い飲み物、夜のお菓子、など具体的に言える）", score: { A: 1 } },
+        { label: "なんとなく避けているものはある", score: { A: 0 } },
+        { label: "特にない", score: { A: -1 } }
+      ]
+    }
+  ];
+
+  /* ------------------------------------------------------------
+     結果タイプ
+     ------------------------------------------------------------ */
+  var TYPES = {
+    A: {
+      name: "決めごとこれからタイプ",
+      desc: "頑張る気持ちはあるのに、「これはやらない」という線引きがまだないので、その日の疲れや気分に流されやすい状態です。意志の問題ではなく、決めごとがまだないだけです。",
+      min: "まず飲み物だけ決める。甘い飲み物は買わない、と1つだけ決める。"
+    },
+    C: {
+      name: "夜に崩れるタイプ",
+      desc: "昼間は整っているのに、夜の空腹と疲れで崩れやすい状態です。意志の問題ではなく、夜の選択肢が決まっていないだけです。",
+      min: "夜お腹が空いたら、小分けのものを1袋だけ。それ以上は悩まなくていい、と先に決めておく。"
+    },
+    B: {
+      name: "戻し方がないタイプ",
+      desc: "食べ過ぎや疲れで崩れたあと、立て直す方法が決まっていないので、崩れたまま数日続いてしまいやすい状態です。崩れること自体は誰にでもあります。足りないのは「戻し方」の決めごとだけです。",
+      min: "食べ過ぎた翌日は、早く寝る・湯船にゆっくり浸かる・タンパク質を少し多めに。この3つだけやる、と決めておく。"
+    },
+    KEEP: {
+      name: "キープできてるタイプ",
+      desc: "決めごとも戻し方もあり、崩れにくい状態です。あとは「疲れた日の最低ライン」を言葉にして決めておくと、忙しい時期も崩れにくくなります。",
+      min: "今の習慣の中で「どんな日でもこれだけはやる」を1つ決めて、言葉にしておく。"
+    }
+  };
+
+  /* ------------------------------------------------------------
+     判定ロジック
+     1. 各軸の合計（+1 / 0 / -1 の和）を出す
+     2. 全軸の合計が 0 より大きい（＝プラス）なら「キープできてるタイプ」
+     3. それ以外は「いちばん弱い軸」でタイプを決める
+        軸ごとに設問数が違う（A=最大+5, B=最大+2, C=最大+2）ため、
+        合計を最大値で割った割合で比べる。
+        小数誤差を避けるため、最大値の最小公倍数(10)を掛けた整数で比較:
+          A×2, B×5, C×5
+     4. 同点なら A → C → B の優先順
+     ------------------------------------------------------------ */
+  var AXIS_MAX = { A: 5, B: 2, C: 2 };
+  var TIE_ORDER = ["A", "C", "B"];
+
+  function sumScores(answers) {
+    var s = { A: 0, B: 0, C: 0 };
+    answers.forEach(function (choiceIndex, qi) {
+      var sc = QUESTIONS[qi].choices[choiceIndex].score;
+      for (var k in sc) { if (Object.prototype.hasOwnProperty.call(sc, k)) s[k] += sc[k]; }
+    });
+    return s;
+  }
+
+  function judge(answers) {
+    var s = sumScores(answers);
+    if (s.A > 0 && s.B > 0 && s.C > 0) return "KEEP";
+    var weakest = null, weakestVal = Infinity;
+    TIE_ORDER.forEach(function (axis) {
+      var v = s[axis] * (10 / AXIS_MAX[axis]); // 正規化（整数）
+      if (v < weakestVal) { weakestVal = v; weakest = axis; } // 「<」なので同点は先勝ち＝A→C→B
+    });
+    return weakest;
+  }
+
+  /* ------------------------------------------------------------
+     判定テストケース（回答は各問の選択肢番号 0/1/2、Q1〜Q8の順）
+     ※ ブラウザのURL末尾に #test を付けて開くと、console に結果が出ます
+
+     [1] 全部いちばん上        [0,0,0,0,0,0,0,0]
+         A=+5 B=+2 C=+2 → 全軸プラス → KEEP（キープできてるタイプ）
+     [2] 全部いちばん下        [2,2,2,2,2,2,2,2]
+         A=-5 B=-2 C=-2 → 正規化 A=-10 C=-10 B=-10 → 同点 → A（決めごとこれからタイプ）
+     [3] 夜だけ崩れる          [0,0,0,2,0,0,1,0]
+         A=+3 B=+2 C=-1 → 正規化 A=6 C=-5 B=10 → C（夜に崩れるタイプ）
+     [4] 戻し方だけない        [0,0,2,0,2,0,0,0]
+         A=+5 B=-2 C=+2 → 正規化 A=10 C=10 B=-10 → B（戻し方がないタイプ）
+     [5] 戻し方が「±」だけ     [0,0,1,0,1,0,0,0]
+         A=+5 B=0 C=+2 → Bがプラスでない → 正規化 A=10 C=10 B=0 → B
+     [6] 夜がいちばん弱い      [0,0,1,1,1,0,1,0]
+         A=+3 B=0 C=-1 → 正規化 A=6 C=-5 B=0 → C
+     [7] 決めごとが弱い        [2,1,0,0,0,1,1,1]
+         A=-4 B=+2 C=0 → 正規化 A=-8 C=0 B=10 → A
+     [8] 決めごとが少し弱い     [0,0,0,0,0,1,1,0]
+         A=+1 B=+2 C=+1 → 全軸プラス → KEEP
+     [9] C と B が同点(0)      [0,0,1,1,1,0,0,0]
+         A=+5 B=0 C=0 → 正規化 A=10 C=0 B=0 → 同点は C 優先 → C
+     [10] A と C が同点(0)     [2,0,0,0,0,0,1,1]
+         A=0 B=+2 C=0 → 正規化 A=0 C=0 B=10 → 同点は A 優先 → A
+     ------------------------------------------------------------ */
+  var TEST_CASES = [
+    { answers: [0,0,0,0,0,0,0,0], expect: "KEEP" },
+    { answers: [2,2,2,2,2,2,2,2], expect: "A" },
+    { answers: [0,0,0,2,0,0,1,0], expect: "C" },
+    { answers: [0,0,2,0,2,0,0,0], expect: "B" },
+    { answers: [0,0,1,0,1,0,0,0], expect: "B" },
+    { answers: [0,0,1,1,1,0,1,0], expect: "C" },
+    { answers: [2,1,0,0,0,1,1,1], expect: "A" },
+    { answers: [0,0,0,0,0,1,1,0], expect: "KEEP" },
+    { answers: [0,0,1,1,1,0,0,0], expect: "C" },
+    { answers: [2,0,0,0,0,0,1,1], expect: "A" }
+  ];
+  function runTests() {
+    var ok = 0;
+    TEST_CASES.forEach(function (t, i) {
+      var got = judge(t.answers);
+      var pass = got === t.expect;
+      if (pass) ok++;
+      console[pass ? "log" : "error"]("[" + (i + 1) + "] " + (pass ? "OK" : "NG") + " expect=" + t.expect + " got=" + got, sumScores(t.answers));
+    });
+    console.log("判定テスト: " + ok + "/" + TEST_CASES.length + " passed");
+    return ok === TEST_CASES.length;
+  }
+  // Node から検証できるように公開（ブラウザでは window.__shindan）
+  var api = { QUESTIONS: QUESTIONS, TYPES: TYPES, judge: judge, sumScores: sumScores, TEST_CASES: TEST_CASES, runTests: runTests };
+  if (typeof window !== "undefined") window.__shindan = api;
+  if (typeof document === "undefined") return;
+
+  /* ------------------------------------------------------------
+     画面制御
+     ------------------------------------------------------------ */
+  var $ = function (id) { return document.getElementById(id); };
+  var answers = [];
+  var current = 0;
+  var lastResult = null;
+  var locked = false;
+
+  // 定数の反映
+  document.title = TOOL_NAME;
+  $("tool-title").textContent = TOOL_NAME;
+  $("profile").textContent = OPERATOR_PROFILE;
+  $("line-btn").textContent = LINE_BUTTON_TEXT;
+  $("line-btn").href = LINE_URL;
+  $("q-total").textContent = QUESTIONS.length;
+  $("progress").setAttribute("aria-valuemax", QUESTIONS.length);
+
+  function show(id) {
+    ["screen-top", "screen-question", "screen-result"].forEach(function (s) {
+      $(s).classList.toggle("active", s === id);
+    });
+    window.scrollTo(0, 0);
+  }
+
+  function renderQuestion() {
+    var q = QUESTIONS[current];
+    $("q-num").textContent = current + 1;
+    $("progress").setAttribute("aria-valuenow", current + 1);
+    $("progress-bar").style.width = ((current + 1) / QUESTIONS.length * 100) + "%";
+    $("q-text").textContent = "Q" + (current + 1) + ". " + q.text;
+    var box = $("choices");
+    box.innerHTML = "";
+    q.choices.forEach(function (c, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "choice";
+      b.textContent = c.label;
+      b.addEventListener("click", function () { pick(i, b); });
+      box.appendChild(b);
+    });
+    $("back-btn").hidden = current === 0;
+    locked = false;
+  }
+
+  function pick(i, el) {
+    if (locked) return;
+    locked = true;
+    el.classList.add("picked");
+    answers[current] = i;
+    setTimeout(function () {
+      if (current < QUESTIONS.length - 1) {
+        current++;
+        renderQuestion();
+        window.scrollTo(0, 0);
+      } else {
+        showResult();
+      }
+    }, 180);
+  }
+
+  function showResult() {
+    var key = judge(answers);
+    var t = TYPES[key];
+    lastResult = t;
+    $("r-type").textContent = t.name;
+    $("r-desc").textContent = t.desc;
+    $("r-min").textContent = t.min;
+    $("copied").textContent = "";
+    show("screen-result");
+  }
+
+  function pageUrl() {
+    return location.protocol === "file:" ? "" : location.href.split("#")[0].split("?")[0];
+  }
+
+  function resultText() {
+    var lines = [
+      "【" + TOOL_NAME + "】",
+      "私は「" + lastResult.name + "」でした。",
+      "",
+      "私の最低ライン：",
+      lastResult.min
+    ];
+    var url = pageUrl();
+    if (url) { lines.push("", "▼診断はこちら", url); }
+    return lines.join("\n");
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.top = "-1000px";
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      var ok = false;
+      try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+      document.body.removeChild(ta);
+      ok ? resolve() : reject();
+    });
+  }
+
+  $("start-btn").addEventListener("click", function () {
+    answers = [];
+    current = 0;
+    renderQuestion();
+    show("screen-question");
+  });
+
+  $("back-btn").addEventListener("click", function () {
+    if (current > 0) {
+      current--;
+      renderQuestion();
+    }
+  });
+
+  $("copy-btn").addEventListener("click", function () {
+    if (!lastResult) return;
+    copyText(resultText()).then(function () {
+      $("copied").textContent = "コピーしました。Threadsなどに貼り付けてシェアできます。";
+    }, function () {
+      $("copied").textContent = "コピーできませんでした。お手数ですが画面を長押ししてコピーしてください。";
+    });
+  });
+
+  $("retry-btn").addEventListener("click", function () {
+    answers = [];
+    current = 0;
+    lastResult = null;
+    show("screen-top");
+  });
+
+  if (location.hash === "#test") runTests();
+})();
+</script>
+</body>
+</html>
