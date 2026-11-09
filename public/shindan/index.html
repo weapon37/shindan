@@ -23,25 +23,26 @@
 <meta property="og:description" content="8問・約1分。疲れた日にどう崩れやすいかを知って、自分に合った「最低ライン」を1つ持ち帰る診断です。">
 <meta property="og:locale" content="ja_JP">
 <!-- 公開URL（GitHub Pages）。独自ドメインなどに変える場合は og:url と og:image / twitter:image の3か所を書き換える -->
-<meta property="og:url" content="https://weapon37.github.io/takahiro/">
-<meta property="og:image" content="https://weapon37.github.io/takahiro/ogp.png">
+<meta property="og:url" content="https://weapon37.github.io/shindan/">
+<meta property="og:image" content="https://weapon37.github.io/shindan/ogp.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://weapon37.github.io/takahiro/ogp.png">
+<meta name="twitter:image" content="https://weapon37.github.io/shindan/ogp.png">
 <meta name="twitter:title" content="40代からの体型キープ力診断">
 <meta name="twitter:description" content="8問・約1分。疲れた日にどう崩れやすいかを知って、自分に合った「最低ライン」を1つ持ち帰る診断です。">
-<meta name="theme-color" content="#2f4a3a">
+<meta name="theme-color" content="#2b2d2f">
 <style>
   :root {
-    --bg: #f5f1e8;
-    --card: #fffdf8;
-    --ink: #2a2a26;
-    --sub: #6b675d;
-    --line: #e2dccd;
-    --green: #2f4a3a;
-    --green-soft: #e6ece5;
-    --line-green: #06c755;
+    --bg: #f2f1ed;
+    --card: #ffffff;
+    --ink: #2b2d2f;
+    --sub: #5f6266;
+    --line: #dcdbd6;
+    --green: #1f4d36;
+    --green-dark: #163a28;
+    --charcoal: #2b2d2f;
+    --charcoal-sub: #b9bbbd;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -72,28 +73,50 @@
     background: var(--card);
     border: 1px solid var(--line);
     border-radius: 12px;
-    padding: 28px 20px;
+    overflow: hidden;
   }
-  .eyebrow {
-    font-size: 13px;
-    color: var(--green);
-    letter-spacing: .08em;
-    font-weight: 700;
-    margin: 0 0 8px;
-  }
-  h1 { font-size: 26px; line-height: 1.45; margin: 0 0 16px; color: var(--green); }
+  .card-body { padding: 28px 20px; }
+  h1 { font-size: 22px; line-height: 1.5; margin: 0; }
   h2 { font-size: 21px; line-height: 1.5; margin: 0 0 20px; }
   p { margin: 0 0 14px; }
+
+  /* アイコン */
+  .icon {
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--charcoal);
+  }
+
+  /* トップ */
+  .hero {
+    background: var(--charcoal);
+    color: #fff;
+    text-align: center;
+    padding: 32px 20px 28px;
+  }
+  .hero .icon { width: 120px; height: 120px; margin: 0 auto 18px; border: 3px solid #fff; }
+  .hero h1 { color: #fff; }
   .meta {
     display: inline-block;
     font-size: 14px;
-    color: var(--green);
-    background: var(--green-soft);
+    font-weight: 700;
+    color: #fff;
+    background: var(--green);
     border-radius: 999px;
-    padding: 4px 14px;
-    margin-bottom: 20px;
+    padding: 3px 16px;
+    margin-top: 12px;
   }
-  .lead { color: var(--sub); font-size: 16px; }
+  .slogan {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.45;
+    color: var(--green);
+    letter-spacing: .02em;
+    margin: 0 0 18px;
+  }
+  .slogan span { display: inline-block; }
+  .lead { color: var(--ink); font-size: 16px; margin-bottom: 24px; }
   .profile {
     font-size: 13px;
     color: var(--sub);
@@ -112,18 +135,18 @@
     font: inherit;
     font-size: 17px;
     font-weight: 700;
+    line-height: 1.5;
     text-align: center;
     text-decoration: none;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .btn:focus-visible, .choice:focus-visible, .text-link:focus-visible { outline: 3px solid #9bb3a2; outline-offset: 2px; }
+  .btn small { display: block; font-size: 12px; font-weight: 400; opacity: .85; }
+  .btn:focus-visible, .choice:focus-visible, .text-link:focus-visible, .back:focus-visible { outline: 3px solid #8a9a90; outline-offset: 2px; }
   .btn-primary { background: var(--green); color: #fff; }
-  .btn-primary:active { background: #223729; }
-  .btn-line { background: var(--line-green); color: #fff; }
-  .btn-line:active { background: #05a948; }
-  .btn-ghost { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
-  .btn-ghost:active { background: var(--green-soft); }
+  .btn-primary:active { background: var(--green-dark); }
+  .btn-ghost { background: transparent; color: var(--charcoal); border: 1.5px solid var(--charcoal); }
+  .btn-ghost:active { background: #e6e5e0; }
 
   /* 進捗 */
   .progress-head {
@@ -150,7 +173,7 @@
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
-  .choice:active, .choice.picked { border-color: var(--green); background: var(--green-soft); }
+  .choice:active, .choice.picked { border-color: var(--green); box-shadow: inset 4px 0 0 var(--green); color: var(--green); font-weight: 700; }
   .back {
     margin-top: 20px; background: none; border: none; color: var(--sub);
     font: inherit; font-size: 14px; padding: 8px 0; cursor: pointer;
@@ -158,27 +181,41 @@
   .back[hidden] { display: none; }
 
   /* 結果 */
-  .result-label { font-size: 14px; color: var(--sub); margin: 0 0 4px; }
-  .type-name { font-size: 26px; color: var(--green); line-height: 1.45; margin: 0 0 20px; }
+  .result-head {
+    background: var(--charcoal);
+    color: #fff;
+    padding: 22px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .result-head .icon { width: 72px; height: 72px; flex: none; border: 2px solid #fff; }
+  .result-label { font-size: 13px; color: var(--charcoal-sub); margin: 0 0 2px; }
+  .type-name { font-size: 24px; color: #fff; line-height: 1.4; margin: 0; }
   .section-title {
     font-size: 14px; font-weight: 700; color: var(--green);
     margin: 0 0 8px; letter-spacing: .04em;
   }
   .minline {
-    background: var(--green-soft);
-    border-left: 4px solid var(--green);
-    border-radius: 8px;
+    border: 2px solid var(--green);
+    border-radius: 10px;
     padding: 18px 16px;
     margin: 28px 0;
   }
-  .minline .section-title { font-size: 16px; }
+  .minline .section-title { font-size: 15px; }
   .minline p { margin: 0; font-weight: 700; font-size: 17px; }
-  .cta { margin-top: 8px; }
-  .cta-note { font-size: 14px; color: var(--sub); text-align: center; margin: 0 0 10px; }
+  .from {
+    display: flex; align-items: center; gap: 12px;
+    border-top: 1px solid var(--line);
+    padding-top: 20px; margin-bottom: 14px;
+  }
+  .from .icon { width: 52px; height: 52px; flex: none; }
+  .from p { margin: 0; font-size: 14px; color: var(--sub); line-height: 1.6; }
+  .from strong { display: block; color: var(--ink); font-size: 14px; }
   .stack > * + * { margin-top: 12px; }
   .copied { font-size: 14px; color: var(--green); text-align: center; min-height: 1.6em; margin: 6px 0 0; }
   .text-link {
-    display: block; text-align: center; margin-top: 18px;
+    display: block; text-align: center; margin-top: 14px;
     color: var(--sub); font-size: 15px; background: none; border: none;
     font-family: inherit; text-decoration: underline; cursor: pointer; width: 100%; padding: 8px;
   }
@@ -190,7 +227,7 @@
 
   @media (min-width: 560px) {
     .wrap { padding-top: 48px; }
-    .card { padding: 36px 32px; }
+    .card-body { padding: 36px 32px; }
   }
 </style>
 </head>
@@ -200,12 +237,17 @@
     <!-- 1. トップ画面 -->
     <section class="screen active" id="screen-top" aria-labelledby="tool-title">
       <div class="card">
-        <p class="eyebrow">SELF CHECK</p>
-        <h1 id="tool-title"></h1>
-        <span class="meta">全8問・約1分</span>
-        <p class="lead">疲れた日、忙しい日に、自分がどう崩れやすいかを確認します。結果では、どんなに疲れた日でもこれだけは守る「最低ライン」を1つだけお伝えします。</p>
-        <button type="button" class="btn btn-primary" id="start-btn">診断をはじめる</button>
-        <p class="profile" id="profile"></p>
+        <div class="hero">
+          <img class="icon" src="runtan-icon.jpg" alt="ランたんのアイコン" width="120" height="120">
+          <h1 id="tool-title"></h1>
+          <span class="meta">全8問・約1分</span>
+        </div>
+        <div class="card-body">
+          <p class="slogan"><span>足さない。</span><span>決めて、引く。</span></p>
+          <p class="lead">疲れた日にどう崩れやすいかを確認します。結果では、どんな日でもこれだけは守る「最低ライン」を1つだけ出します。</p>
+          <button type="button" class="btn btn-primary" id="start-btn">診断をはじめる</button>
+          <p class="profile" id="profile"></p>
+        </div>
       </div>
     </section>
 
@@ -225,24 +267,33 @@
     <!-- 3. 結果画面 -->
     <section class="screen" id="screen-result" aria-live="polite">
       <div class="card">
-        <p class="result-label">あなたは</p>
-        <h2 class="type-name" id="r-type"></h2>
-
-        <p class="section-title">あなたの崩れパターン</p>
-        <p id="r-desc"></p>
-
-        <div class="minline">
-          <p class="section-title">あなたの最低ラインは、これです</p>
-          <p id="r-min"></p>
+        <div class="result-head">
+          <img class="icon" src="runtan-icon.jpg" alt="" width="72" height="72">
+          <div>
+            <p class="result-label">あなたは</p>
+            <h2 class="type-name" id="r-type"></h2>
+          </div>
         </div>
+        <div class="card-body">
+          <p class="section-title">崩れパターン</p>
+          <p id="r-desc"></p>
 
-        <div class="cta stack">
-          <p class="cta-note">体型維持のために続けている習慣をまとめたリストを、公式LINEで無料でお渡ししています。</p>
-          <a class="btn btn-line" id="line-btn" href="#" target="_blank" rel="noopener"></a>
-          <button type="button" class="btn btn-ghost" id="copy-btn">結果テキストをコピーする</button>
+          <div class="minline">
+            <p class="section-title">あなたの最低ラインは、これです</p>
+            <p id="r-min"></p>
+          </div>
+
+          <div class="from">
+            <img class="icon" src="runtan-icon.jpg" alt="" width="52" height="52">
+            <p><strong id="operator-name"></strong>続けている習慣をリストにしました。公式LINEで無料で渡しています。</p>
+          </div>
+          <div class="stack">
+            <a class="btn btn-primary" id="line-btn" href="#" target="_blank" rel="noopener"></a>
+            <button type="button" class="btn btn-ghost" id="copy-btn">結果テキストをコピーする</button>
+          </div>
+          <p class="copied" id="copied" role="status"></p>
+          <button type="button" class="text-link" id="retry-btn">もう一度診断する</button>
         </div>
-        <p class="copied" id="copied" role="status"></p>
-        <button type="button" class="text-link" id="retry-btn">もう一度診断する</button>
       </div>
     </section>
   </main>
@@ -454,7 +505,11 @@
   document.title = TOOL_NAME;
   $("tool-title").textContent = TOOL_NAME;
   $("profile").textContent = OPERATOR_PROFILE;
+  $("operator-name").textContent = OPERATOR_NAME;
   $("line-btn").textContent = LINE_BUTTON_TEXT;
+  var lineNote = document.createElement("small");
+  lineNote.textContent = "公式LINEが開きます";
+  $("line-btn").appendChild(lineNote);
   $("line-btn").href = LINE_URL;
   $("q-total").textContent = QUESTIONS.length;
   $("progress").setAttribute("aria-valuemax", QUESTIONS.length);

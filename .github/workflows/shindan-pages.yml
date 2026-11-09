@@ -1,5 +1,5 @@
 # 診断ツール（public/shindan）だけを GitHub Pages に公開する
-# 公開URL: https://weapon37.github.io/takahiro/
+# 公開URL: https://weapon37.github.io/shindan/
 # 事前設定: GitHub の Settings → Pages → Build and deployment → Source を「GitHub Actions」にする
 name: Deploy shindan to GitHub Pages
 
