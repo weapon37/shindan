@@ -2,6 +2,7 @@
   "sheet": "2026.11",
   "entries": [
     {"day": 5, "end_km": 27146, "distance_km": 23, "driver": "AB", "note": ""},
-    {"day": 9, "end_km": 27149, "distance_km": 3, "driver": "AB", "note": ""}
+    {"day": 9, "end_km": 27149, "distance_km": 3, "driver": "AB", "note": ""},
+    {"day": 11, "end_km": 27169, "distance_km": 20, "driver": "A", "note": ""}
   ]
 }
